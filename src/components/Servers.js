@@ -1,6 +1,6 @@
-import ethereum from '../assets/ethereum.svg';
-import plus from '../assets/plus.svg';
-import search from '../assets/search.svg';
+import ethereum from "../assets/ethereum.svg";
+import plus from "../assets/plus.svg";
+import search from "../assets/search.svg";
 
 const Servers = () => {
   return (
@@ -16,6 +16,6 @@ const Servers = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Servers;
