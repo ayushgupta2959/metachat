@@ -89,4 +89,30 @@ describe("Metachat", function () {
       expect(result).to.be.equal(CHANNEL_COST);
     });
   });
+
+  describe("Withdrawing", () => {
+    let balanceBefore;
+
+    beforeEach(async () => {
+      balanceBefore = await ethers.provider.getBalance(deployer.address);
+
+      let transaction = await metachat
+        .connect(user)
+        .mint(CHANNEL_ID, { value: CHANNEL_COST });
+      await transaction.wait();
+
+      transaction = await metachat.connect(deployer).withdraw();
+      await transaction.wait();
+    });
+
+    it("Updates the owner balance", async () => {
+      const balanceAfter = await ethers.provider.getBalance(deployer.address);
+      expect(balanceAfter).to.be.greaterThan(balanceBefore);
+    });
+
+    it("Updates the contract balance", async () => {
+      const result = await ethers.provider.getBalance(metachat.address);
+      expect(result).to.equal(0);
+    });
+  });
 });
